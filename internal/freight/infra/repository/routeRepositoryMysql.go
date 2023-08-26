@@ -18,8 +18,8 @@ func NewRouteRepositoryMySql(db *sql.DB) *RouteRepositoryMySql {
 }
 
 func (r *RouteRepositoryMySql) Create(route *entity.Route) error {
-	sql := "INSERT INTO routes (id, name, distance, status, freight_price) VALUES (?, ?, ?, ?, ?)"
-	_, err := r.db.Exec(sql, route.ID, route.Name, route.Distance, route.Status, route.FreightPrice)
+	sqlSmt := "INSERT INTO routes (id, name, distance, status, freight_price) VALUES (?, ?, ?, ?, ?)"
+	_, err := r.db.Exec(sqlSmt, route.ID, route.Name, route.Distance, route.Status, route.FreightPrice)
 	if err != nil {
 		return err
 	}
@@ -28,8 +28,8 @@ func (r *RouteRepositoryMySql) Create(route *entity.Route) error {
 }
 
 func (r *RouteRepositoryMySql) FindByID(id string) (*entity.Route, error) {
-	sql := "SELECT * FROM routes WHERE id = ?"
-	row := r.db.QueryRow(sql, id)
+	sqlSmt := "SELECT * FROM routes WHERE id = ?"
+	row := r.db.QueryRow(sqlSmt, id)
 
 	var starteAt, finishedAt sql.NullTime
 
